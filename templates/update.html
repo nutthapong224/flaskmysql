@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Data</title>
+    <style>
+      /* Primary Theme */
+      :root {
+        --primary-color: #007bff; /* Primary blue */
+        --secondary-color: #6c757d; /* Secondary gray */
+        --background-color: #f8f9fa; /* Light background */
+        --font-color: #343a40; /* Dark font */
+        --btn-bg: var(--primary-color);
+        --btn-hover-bg: #0056b3;
+        --input-border: #ced4da;
+        --input-focus-border: var(--primary-color);
+        --border-radius: 5px;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: var(--background-color);
+        color: var(--font-color);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+      }
+
+      h1 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid var(--input-border);
+        border-radius: var(--border-radius);
+        transition: border-color 0.3s;
+      }
+
+      input[type="text"]:focus,
+      textarea:focus {
+        border-color: var(--input-focus-border);
+        outline: none;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: var(--btn-bg);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      input[type="submit"]:hover {
+        background-color: var(--btn-hover-bg);
+      }
+
+      .btn {
+        display: inline-block;
+        text-align: center;
+        padding: 10px 15px;
+        background-color: var(--btn-bg);
+        color: white;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      .btn:hover {
+        background-color: var(--btn-hover-bg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Update Data</h1>
+      <form action="{{ url_for('update_data', id=data[0]) }}" method="POST">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="{{ data[1] }}"
+          required
+        /><br /><br />
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required>{{ data[2] }}</textarea><br /><br />
+
+        <input type="submit" value="Update" />
+      </form>
+      <br />
+      <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+    </div>
+  </body>
+</html>
