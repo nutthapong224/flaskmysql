@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: .
+    container_name: flask-app
+    ports:
+      - "80:80"
+    environment:
+      - DB_USER=user               # Database username
+      - DB_PASSWORD=123456         # Database password
+      - DB_HOST=db                 # Updated to use the correct service name
+      - DB_NAME=travel             # Database name
+    depends_on:
+      - db                         # Updated to use the correct service name
+    volumes:
+      - .:/app
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456  # MySQL root password
+      MYSQL_DATABASE: travel         # Database to create
+      MYSQL_USER: user               # Database username
+      MYSQL_PASSWORD: 123456         # Database password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql  
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db                  # Use the correct service name
+    ports:
+      - "8000:80"
+    depends_on:
+      - db                           # Ensure it depends on the db service
+
+volumes:
+  db_data:
